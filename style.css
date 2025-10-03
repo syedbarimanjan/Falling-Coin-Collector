@@ -32,3 +32,32 @@ body {
     background: gold;
     border-radius: 50%;
 }
+.menu{
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: rgb(247, 109, 23);
+    top: 50%;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+}
+.start-button{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: rgb(4, 2, 1);
+    color: #ffffff;
+    top: 50%;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    cursor: pointer;
+}
+.restart-button{
+    position: absolute;
+    z-index: 999;
+    cursor: pointer;
+}

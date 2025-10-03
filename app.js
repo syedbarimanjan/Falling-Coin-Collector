@@ -2,14 +2,12 @@ const basket = document.getElementById("basket");
 const gameboard = document.getElementById("game");
 const scoreDiv = document.getElementById("score");
 const livesDiv = document.getElementById("lives");
+const menuDiv = document.getElementById("menu");
+const startButton = document.getElementById("start-button");
+const restartButton = document.getElementById("restart-button");
 
 let score = 0;
 let lives = 3;
-
-
-// basket.addEventListener("mousemove",(e) => {
-//     console.log(e)
-// })
 
 gameboard.addEventListener("mousemove",(e) => {
     basket.style.bottom = e.x + "px";
@@ -33,15 +31,13 @@ function createCoin() {
 
 function dropCoin(coin) {
     let topValue = 0;
-    const fallSpeed = 3;
+    const fallSpeed = 30;
 
     const interval = setInterval(() => {
         topValue += fallSpeed;
         coin.style.top = topValue + "px";
 
         checkCollision(coin,interval);
-        console.log(topValue + "val")
-        console.log(window.innerHeight + "hie")
 
         if(topValue > window.innerHeight) {
             lives -= 1;
@@ -64,9 +60,27 @@ function checkCollision(coin,interval) {
     }
 }
 
+function removeAllCoins() {
+    gameboard.querySelectorAll(".coin").forEach(coin => coin.remove())
+}
 
-setInterval(() => {
-    if(lives > 0){
-        createCoin()
+startButton.addEventListener("click",() => {
+    menuDiv.style.display = "none";
+    if(lives <= 0){
+        removeAllCoins()
+        lives = 3;
+        score = 0;
     }
-}, 1000);
+    setInterval(() => {
+        if(lives > 0){
+            createCoin()
+        }
+    }, 1000);
+})
+
+restartButton.addEventListener("click",() => {
+    if(lives <= 0){
+        removeAllCoins()
+        menuDiv.style.display = "block"
+    }
+})
