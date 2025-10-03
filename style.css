@@ -12,24 +12,27 @@ body {
     position: relative;
     width: 100vw;
     height: 100vh;
-    background: #222;
+    background-image: url(./illustration-anime-city.jpg);
+    background-size: cover;
     overflow: hidden;
 }
 .basket {
     position: absolute;
     bottom: 20px;
     width: 100px;
-    height: 50px;
-    background: brown;
+    height: 100px;
+    background-image: url(./—Pngtree—black\ hat\ clipart\ hat\ clipart_5786658.png);
+    background-size: cover;
     left: 50%;
     transform: translateX(-50%);
     border-radius: 10px;
 }
 .coin {
     position: absolute;
-    width: 40px;
-    height: 40px;
-    background: gold;
+    width: 70px;
+    height: 70px;
+    background-image: url(./—Pngtree—glossy\ golden\ coin\ icon_5986301.png);
+    background-size: contain;
     border-radius: 50%;
 }
 .menu{
