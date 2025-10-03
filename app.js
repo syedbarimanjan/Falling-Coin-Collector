@@ -7,9 +7,9 @@ let score = 0;
 let lives = 3;
 
 
-basket.addEventListener("mousemove",(e) => {
-    console.log(e)
-})
+// basket.addEventListener("mousemove",(e) => {
+//     console.log(e)
+// })
 
 gameboard.addEventListener("mousemove",(e) => {
     basket.style.bottom = e.x + "px";
@@ -39,7 +39,9 @@ function dropCoin(coin) {
         topValue += fallSpeed;
         coin.style.top = topValue + "px";
 
-        checkCollision(coin);
+        checkCollision(coin,interval);
+        console.log(topValue + "val")
+        console.log(window.innerHeight + "hie")
 
         if(topValue > window.innerHeight) {
             lives -= 1;
@@ -50,7 +52,7 @@ function dropCoin(coin) {
     }, 20);
 }
 
-function checkCollision(coin) {
+function checkCollision(coin,interval) {
     const coinRect = coin.getBoundingClientRect();
     const basketRect = basket.getBoundingClientRect();
 
@@ -58,6 +60,7 @@ function checkCollision(coin) {
         score++
         scoreDiv.textContent = "Score: " + score;
         coin.remove()
+        clearInterval(interval)
     }
 }
 
