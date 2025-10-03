@@ -1,5 +1,9 @@
 const basket = document.getElementById("basket");
 const gameboard = document.getElementById("game");
+const scoreDiv = document.getElementById("score");
+
+let score = 0;
+
 
 basket.addEventListener("mousemove",(e) => {
     console.log(e)
@@ -27,7 +31,7 @@ function createCoin() {
 
 function dropCoin(coin) {
     let topValue = 0;
-    const fallSpeed = 3;
+    const fallSpeed = 300;
 
     const interval = setInterval(() => {
         topValue += fallSpeed;
@@ -42,4 +46,16 @@ function dropCoin(coin) {
     }, 20);
 }
 
-setInterval(createCoin, 1000);
+function checkCollision(coin) {
+    const coinRect = coin.getBoundingClientRect();
+    const basketRect = basket.getBoundingClientRect();
+
+    if(coinRect.bottom >= basketRect.top && coinRect.left < basketRect.right && coinRect.right > basketRect.left){
+        score++
+        scoreDiv.textContent = "Score: " + score;
+        coin.remove()
+    }
+}
+
+
+// setInterval(createCoin, 1000);
