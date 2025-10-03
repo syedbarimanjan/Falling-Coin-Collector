@@ -31,7 +31,7 @@ function createCoin() {
 
 function dropCoin(coin) {
     let topValue = 0;
-    const fallSpeed = 30;
+    const fallSpeed = score > 20 ? score / 4 : 5;
 
     const interval = setInterval(() => {
         topValue += fallSpeed;
