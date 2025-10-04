@@ -16,6 +16,7 @@ const teenagerDiv = document.getElementById("teenager");
 const gameOverMenu = document.getElementById("game-over-menu");
 const backdropDiv = document.getElementById("backdrop");
 const finalTotalScoreDiv = document.getElementById("final-total-score");
+const countdownEl = document.getElementById("countdown");
 
 let totalScore = 0;
 let currentScore = 0;
@@ -121,6 +122,9 @@ function startGame() {
     }, (Math.floor(Math.random() * lives) + 1) * 10000);
 }
 
+let donateTimeout;
+let countdownInterval;
+
 function donateCoins() {
     donateMenuDiv.style.display = "block"
     removeAllCoins()
@@ -147,6 +151,31 @@ function donateCoins() {
         
         char.classList.add(shuffledClasses[index]);
     });
+
+    let timeLeft = 3;
+    countdownEl.textContent = timeLeft;
+
+    countdownInterval = setInterval(() => {
+        timeLeft--;
+        countdownEl.textContent = timeLeft;
+        if (timeLeft <= 0) {
+            clearInterval(countdownInterval);
+        }
+    }, 1000);
+
+    donateTimeout = setTimeout(() => {
+        lives--;
+        livesDiv.textContent = "Lives: " + lives
+        donateMenuDiv.style.display = "none";
+        clearInterval(countdownInterval);
+        clearTimeout(donateTimeout)
+
+        if (lives > 0) {
+            clearInterval(donateInterval)
+            clearInterval(startInterval)
+            startGame();
+        }
+    }, 3000);
 }
 
 pauseButton.addEventListener("click",() => {
@@ -193,6 +222,7 @@ guitarPlayerDiv.addEventListener("click", () => {
     console.log(startInterval)
     clearInterval(donateInterval)
     clearInterval(startInterval)
+    clearTimeout(donateTimeout)
     startGame()
 })
 
@@ -204,6 +234,7 @@ homelessGuyDiv.addEventListener("click", () => {
     donateMenuDiv.style.display = "none"
     clearInterval(donateInterval)
     clearInterval(startInterval)
+    clearTimeout(donateTimeout)
     startGame()
 })
 
@@ -215,6 +246,7 @@ assassinDiv.addEventListener("click", () => {
     donateMenuDiv.style.display = "none"
     clearInterval(donateInterval)
     clearInterval(startInterval)
+    clearTimeout(donateTimeout)
     startGame()
 })
 
@@ -226,5 +258,6 @@ teenagerDiv.addEventListener("click", () => {
     donateMenuDiv.style.display = "none"
     clearInterval(donateInterval)
     clearInterval(startInterval)
+    clearTimeout(donateTimeout)
     startGame()
 })
