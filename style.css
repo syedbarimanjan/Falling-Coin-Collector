@@ -119,7 +119,7 @@ body {
 }
 .pos2 {
     position: absolute;
-    bottom: 0%;
+    bottom: 1%;
     left: 30%;
 }
 .pos3 {
@@ -130,7 +130,7 @@ body {
 .pos4 {
     position: absolute;
     bottom: 0%;
-    left: 85%;
+    left: 80%;
 }
 .guitar-player{
     background-image: url(./guitarist.png);
@@ -143,8 +143,8 @@ body {
 .homeless-guy{
     background-image: url(./homeless.png);
     background-size: cover;
-    width: 320px;
-    height: 400px;
+    width: 300px;
+    height: 320px;
     cursor: pointer;
     z-index: 990;
 }

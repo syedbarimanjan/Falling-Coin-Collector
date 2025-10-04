@@ -104,18 +104,39 @@ function startGame() {
         } else {
             removeAllCoins()
             clearInterval(startInterval)
+            clearInterval(donateInterval)
         }
     }, 1000);
     donateInterval = setInterval(() => {
-        if(currentScore > 0){
+        if(currentScore > 0 ){
             donateCoins()
         }
-    }, Math.floor(Math.random() * lives) * 10000);
+    }, (Math.floor(Math.random() * lives) + 1) * 10000);
 }
 
 function donateCoins() {
     donateMenuDiv.style.display = "block"
     clearInterval(startInterval)
+    const charachterClasses = ["pos1","pos2","pos3","pos4"]
+    
+    const allCharachters = [guitarPlayerDiv,homelessGuyDiv,assassinDiv,teenagerDiv]
+    
+    // This is the Fisher–Yates shuffle Algorithm 
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+    
+    const shuffledClasses = shuffle([...charachterClasses]);
+    
+    allCharachters.forEach((char, index) => {
+        char.classList.remove(...charachterClasses);
+        
+        char.classList.add(shuffledClasses[index]);
+    });
 }
 
 pauseButton.addEventListener("click",() => {
@@ -144,25 +165,6 @@ resumeButton.addEventListener("click", () => {
 
 
 
-const charachterClasses = ["pos1","pos2","pos3","pos4"]
-
-const allCharachters = [guitarPlayerDiv,homelessGuyDiv,assassinDiv,teenagerDiv]
-
-function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}
-
-const shuffledClasses = shuffle([...charachterClasses]);
-
-allCharachters.forEach((char, index) => {
-    char.classList.remove(...charachterClasses);
-    
-    char.classList.add(shuffledClasses[index]);
-});
 
 guitarPlayerDiv.addEventListener("click", () => {
     guitarist += currentScore;
