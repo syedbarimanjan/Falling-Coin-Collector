@@ -74,10 +74,40 @@ body {
     border-radius: 10px;
     cursor: pointer;
 }
+.pause-button{
+    /* position: absolute; */
+    width: 50px;
+    height: 50px;
+    background: rgb(4, 2, 1);
+    color: #ffffff;
+    /* top: 50%;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 999;
+}
+.resume-button{
+    /* position: absolute; */
+    width: 50px;
+    height: 50px;
+    background: rgb(4, 2, 1);
+    color: #ffffff;
+    /* top: 50%;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    border-radius: 10px;
+    cursor: pointer;
+    z-index: 999;
+}
 .data{
     background-color: #ffffff;
     width: fit-content;
     padding: .5em;
+    z-index: 999;
+    position: relative;
 }
 .hide{
     display: none;

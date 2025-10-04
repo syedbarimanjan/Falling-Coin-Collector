@@ -7,6 +7,8 @@ const menuDiv = document.getElementById("menu");
 const donateMenuDiv = document.getElementById("donateMenu");
 const startButton = document.getElementById("start-button");
 const restartButton = document.getElementById("restart-button");
+const pauseButton = document.getElementById("pause-button");
+const resumeButton = document.getElementById("resume-button");
 const guitarPlayerDiv = document.getElementById("guitar-player");
 const homelessGuyDiv = document.getElementById("homeless-guy");
 const assassinDiv = document.getElementById("assassin");
@@ -40,26 +42,30 @@ function createCoin() {
     dropCoin(coin);
 }
 
+let coinIntervals = [];
+
 function dropCoin(coin) {
     let topValue = 0;
     const fallSpeed = totalScore > 20 ? totalScore / 4 : 5;
 
-    const interval = setInterval(() => {
+    const coinInterval = setInterval(() => {
         topValue += fallSpeed;
         coin.style.top = topValue + "px";
 
-        checkCollision(coin,interval);
+        checkCollision(coin,coinInterval);
 
         if(topValue > window.innerHeight) {
             lives -= 1;
             livesDiv.textContent = "Lives: " + lives;
             coin.remove()
-            clearInterval(interval)
+            clearInterval(coinInterval)
         }
     }, 20);
+
+    coinIntervals.push(coinInterval);
 }
 
-function checkCollision(coin,interval) {
+function checkCollision(coin,coinInterval) {
     const coinRect = coin.getBoundingClientRect();
     const basketRect = basket.getBoundingClientRect();
 
@@ -69,7 +75,7 @@ function checkCollision(coin,interval) {
         totalScoreDiv.textContent = "Total Score: " + totalScore;
         currentScoreDiv.textContent = "Current Score: " + currentScore;
         coin.remove()
-        clearInterval(interval)
+        clearInterval(coinInterval)
     }
 }
 
@@ -100,8 +106,10 @@ function startGame() {
         }
     }, 1000);
     donateInterval = setInterval(() => {
-        donateCoins()
-    }, Math.random() * 10000 * lives);
+        if(currentScore > 0){
+            donateCoins()
+        }
+    }, Math.floor(Math.random() * lives) * 10000);
 }
 
 function donateCoins() {
@@ -109,6 +117,22 @@ function donateCoins() {
     clearInterval(startInterval)
 }
 
+pauseButton.addEventListener("click",() => {
+    clearInterval(startInterval)
+    removeAllCoins()
+    coinIntervals.forEach(interval => clearInterval(interval))
+    clearInterval(donateInterval)
+    pauseButton.classList.add("hide")
+    resumeButton.classList.remove("hide")
+})
+
+resumeButton.addEventListener("click", () => {
+    clearInterval(donateInterval)
+    startGame()
+    pauseButton.classList.remove("hide")
+    resumeButton.classList.add("hide")
+
+})
 
 // restartButton.addEventListener("click",() => {
 //     if(lives <= 0){
@@ -123,8 +147,9 @@ guitarPlayerDiv.addEventListener("click", () => {
     currentScoreDiv.textContent = "Current Score: " + currentScore
     console.log(guitarist)
     donateMenuDiv.style.display = "none"
+    console.log(startInterval)
     clearInterval(donateInterval)
-    // removeAllCoins()
+    clearInterval(startInterval)
     startGame()
 })
 
@@ -135,7 +160,7 @@ homelessGuyDiv.addEventListener("click", () => {
     console.log(homelessGuy)
     donateMenuDiv.style.display = "none"
     clearInterval(donateInterval)
-    // removeAllCoins()
+    clearInterval(startInterval)
     startGame()
 })
 
@@ -146,7 +171,7 @@ assassinDiv.addEventListener("click", () => {
     console.log(assassin)
     donateMenuDiv.style.display = "none"
     clearInterval(donateInterval)
-    // removeAllCoins()
+    clearInterval(startInterval)
     startGame()
 })
 
@@ -157,6 +182,6 @@ teenagerDiv.addEventListener("click", () => {
     console.log(teenager)
     donateMenuDiv.style.display = "none"
     clearInterval(donateInterval)
-    // removeAllCoins()
+    clearInterval(startInterval)
     startGame()
 })
