@@ -1,6 +1,7 @@
 const basket = document.getElementById("basket");
 const gameboard = document.getElementById("game");
-const scoreDiv = document.getElementById("score");
+const totalScoreDiv = document.getElementById("total-score");
+const currentScoreDiv = document.getElementById("current-score");
 const livesDiv = document.getElementById("lives");
 const menuDiv = document.getElementById("menu");
 const donateMenuDiv = document.getElementById("donateMenu");
@@ -11,7 +12,8 @@ const homelessGuyDiv = document.getElementById("homeless-guy");
 const assassinDiv = document.getElementById("assassin");
 const teenagerDiv = document.getElementById("teenager");
 
-let score = 0;
+let totalScore = 0;
+let currentScore = 0;
 let lives = 3;
 let guitarist = 0;
 let homelessGuy = 0;
@@ -40,7 +42,7 @@ function createCoin() {
 
 function dropCoin(coin) {
     let topValue = 0;
-    const fallSpeed = score > 20 ? score / 4 : 5;
+    const fallSpeed = totalScore > 20 ? totalScore / 4 : 5;
 
     const interval = setInterval(() => {
         topValue += fallSpeed;
@@ -62,8 +64,10 @@ function checkCollision(coin,interval) {
     const basketRect = basket.getBoundingClientRect();
 
     if(coinRect.bottom >= basketRect.top && coinRect.left < basketRect.right && coinRect.right > basketRect.left){
-        score++
-        scoreDiv.textContent = "Score: " + score;
+        totalScore++
+        currentScore++
+        totalScoreDiv.textContent = "Total Score: " + totalScore;
+        currentScoreDiv.textContent = "Current Score: " + currentScore;
         coin.remove()
         clearInterval(interval)
     }
@@ -78,7 +82,7 @@ startButton.addEventListener("click",() => {
     if(lives <= 0){
         removeAllCoins()
         lives = 3;
-        score = 0;
+        totalScore = 0;
     }
     startGame()
 })
@@ -114,7 +118,9 @@ function donateCoins() {
 // })
 
 guitarPlayerDiv.addEventListener("click", () => {
-    guitarist += score
+    guitarist += currentScore;
+    currentScore = 0;
+    currentScoreDiv.textContent = "Current Score: " + currentScore
     console.log(guitarist)
     donateMenuDiv.style.display = "none"
     clearInterval(donateInterval)
@@ -123,7 +129,9 @@ guitarPlayerDiv.addEventListener("click", () => {
 })
 
 homelessGuyDiv.addEventListener("click", () => {
-    homelessGuy += score
+    homelessGuy += currentScore;
+    currentScore = 0;
+    currentScoreDiv.textContent = "Current Score: " + currentScore
     console.log(homelessGuy)
     donateMenuDiv.style.display = "none"
     clearInterval(donateInterval)
@@ -132,7 +140,9 @@ homelessGuyDiv.addEventListener("click", () => {
 })
 
 assassinDiv.addEventListener("click", () => {
-    assassin += score
+    assassin += currentScore;
+    currentScore = 0;
+    currentScoreDiv.textContent = "Current Score: " + currentScore
     console.log(assassin)
     donateMenuDiv.style.display = "none"
     clearInterval(donateInterval)
@@ -141,7 +151,9 @@ assassinDiv.addEventListener("click", () => {
 })
 
 teenagerDiv.addEventListener("click", () => {
-    teenager += score
+    teenager += currentScore;
+    currentScore = 0;
+    currentScoreDiv.textContent = "Current Score: " + currentScore
     console.log(teenager)
     donateMenuDiv.style.display = "none"
     clearInterval(donateInterval)
