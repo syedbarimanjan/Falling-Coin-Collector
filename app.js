@@ -169,12 +169,9 @@ function donateCoins() {
         donateMenuDiv.style.display = "none";
         clearInterval(countdownInterval);
         clearTimeout(donateTimeout)
-
-        if (lives > 0) {
-            clearInterval(donateInterval)
-            clearInterval(startInterval)
-            startGame();
-        }
+        clearInterval(donateInterval)
+        clearInterval(startInterval)
+        startGame();
     }, 3000);
 }
 
@@ -214,12 +211,11 @@ restartButton.addEventListener("click",() => {
 
 
 guitarPlayerDiv.addEventListener("click", () => {
-    guitarist += currentScore;
+    lives--
+    livesDiv.textContent = "Lives: " + lives
     currentScore = 0;
     currentScoreDiv.textContent = "Current Score: " + currentScore
-    console.log(guitarist)
     donateMenuDiv.style.display = "none"
-    console.log(startInterval)
     clearInterval(donateInterval)
     clearInterval(startInterval)
     clearTimeout(donateTimeout)
@@ -242,7 +238,6 @@ assassinDiv.addEventListener("click", () => {
     assassin += currentScore;
     currentScore = 0;
     currentScoreDiv.textContent = "Current Score: " + currentScore
-    console.log(assassin)
     donateMenuDiv.style.display = "none"
     clearInterval(donateInterval)
     clearInterval(startInterval)
@@ -251,10 +246,10 @@ assassinDiv.addEventListener("click", () => {
 })
 
 teenagerDiv.addEventListener("click", () => {
-    teenager += currentScore;
+    lives--
+    livesDiv.textContent = "Lives: " + lives
     currentScore = 0;
     currentScoreDiv.textContent = "Current Score: " + currentScore
-    console.log(teenager)
     donateMenuDiv.style.display = "none"
     clearInterval(donateInterval)
     clearInterval(startInterval)
