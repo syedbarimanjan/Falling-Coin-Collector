@@ -22,6 +22,7 @@ let guitarist = 0;
 let homelessGuy = 0;
 let assassin = 0;
 let teenager = 0;
+let isGameStart = true;
 
 gameboard.addEventListener("mousemove",(e) => {
     basket.style.bottom = e.x + "px";
@@ -99,7 +100,7 @@ let donateInterval;
 
 function startGame() {
     startInterval = setInterval(() => {
-        if(lives > 0){
+        if(lives > 0 && isGameStart){
             createCoin()
         } else {
             removeAllCoins()
@@ -108,7 +109,7 @@ function startGame() {
         }
     }, 1000);
     donateInterval = setInterval(() => {
-        if(currentScore > 0 ){
+        if(currentScore > 0 && donateMenuDiv.style.display !== "block"){
             donateCoins()
         }
     }, (Math.floor(Math.random() * lives) + 1) * 10000);
@@ -144,12 +145,14 @@ pauseButton.addEventListener("click",() => {
     removeAllCoins()
     coinIntervals.forEach(interval => clearInterval(interval))
     clearInterval(donateInterval)
+    isGameStart = false;
     pauseButton.classList.add("hide")
     resumeButton.classList.remove("hide")
 })
 
 resumeButton.addEventListener("click", () => {
     clearInterval(donateInterval)
+    isGameStart = true;
     startGame()
     pauseButton.classList.remove("hide")
     resumeButton.classList.add("hide")

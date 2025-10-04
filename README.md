@@ -1,6 +1,2 @@
 # Falling-Coin-Collector
 A game in which coins fall from the sky and you have to collect them in a hat and then suddenly it stops and you have to give the collected coins to one of the four charachters on the bottom and two of them will use it for bad so if you give it to them you lose.
-
-
-bugs: 
-    when i pause the game and then click a charachter the game starts and the resume button is still there.
