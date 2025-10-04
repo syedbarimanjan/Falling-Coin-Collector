@@ -9,11 +9,13 @@ const startButton = document.getElementById("start-button");
 const restartButton = document.getElementById("restart-button");
 const pauseButton = document.getElementById("pause-button");
 const resumeButton = document.getElementById("resume-button");
-// const charachtersDiv = document.getElementById("charachters-div");
 const guitarPlayerDiv = document.getElementById("guitar-player");
 const homelessGuyDiv = document.getElementById("homeless-guy");
 const assassinDiv = document.getElementById("assassin");
 const teenagerDiv = document.getElementById("teenager");
+const gameOverMenu = document.getElementById("game-over-menu");
+const backdropDiv = document.getElementById("backdrop");
+const finalTotalScoreDiv = document.getElementById("final-total-score");
 
 let totalScore = 0;
 let currentScore = 0;
@@ -87,6 +89,7 @@ function removeAllCoins() {
 
 startButton.addEventListener("click",() => {
     menuDiv.style.display = "none";
+    backdropDiv.style.display = "none"
     if(lives <= 0){
         removeAllCoins()
         lives = 3;
@@ -103,6 +106,9 @@ function startGame() {
         if(lives > 0 && isGameStart){
             createCoin()
         } else {
+            backdropDiv.style.display = "block"
+            gameOverMenu.style.display = "block"
+            finalTotalScoreDiv.textContent = "Total Score: " + totalScore;
             removeAllCoins()
             clearInterval(startInterval)
             clearInterval(donateInterval)
@@ -117,7 +123,10 @@ function startGame() {
 
 function donateCoins() {
     donateMenuDiv.style.display = "block"
+    removeAllCoins()
+    coinIntervals.forEach(interval => clearInterval(interval))
     clearInterval(startInterval)
+
     const charachterClasses = ["pos1","pos2","pos3","pos4"]
     
     const allCharachters = [guitarPlayerDiv,homelessGuyDiv,assassinDiv,teenagerDiv]
@@ -159,12 +168,18 @@ resumeButton.addEventListener("click", () => {
 
 })
 
-// restartButton.addEventListener("click",() => {
-//     if(lives <= 0){
-//         removeAllCoins()
-//         menuDiv.style.display = "block"
-//     }
-// })
+restartButton.addEventListener("click",() => {
+    backdropDiv.style.display = "none"
+    gameOverMenu.style.display = "none"
+    lives = 3;
+    totalScore = 0;
+    currentScore = 0;
+    livesDiv.textContent = "Lives: " + lives;
+    totalScoreDiv.textContent = "Total Score: " + totalScore;
+    currentScoreDiv.textContent = "Current Score: " + currentScore;
+    coinIntervals.forEach(interval => clearInterval(interval))
+    startGame()
+})
 
 
 
