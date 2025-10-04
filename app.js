@@ -21,10 +21,8 @@ const countdownEl = document.getElementById("countdown");
 let totalScore = 0;
 let currentScore = 0;
 let lives = 3;
-let guitarist = 0;
 let homelessGuy = 0;
 let assassin = 0;
-let teenager = 0;
 let isGameStart = true;
 
 gameboard.addEventListener("mousemove",(e) => {
@@ -43,7 +41,6 @@ function createCoin() {
     coin.style.top = "0px";
 
     gameboard.appendChild(coin);
-
     dropCoin(coin);
 }
 
@@ -66,7 +63,6 @@ function dropCoin(coin) {
             clearInterval(coinInterval)
         }
     }, 20);
-
     coinIntervals.push(coinInterval);
 }
 
@@ -91,11 +87,6 @@ function removeAllCoins() {
 startButton.addEventListener("click",() => {
     menuDiv.style.display = "none";
     backdropDiv.style.display = "none"
-    if(lives <= 0){
-        removeAllCoins()
-        lives = 3;
-        totalScore = 0;
-    }
     startGame()
 })
 
@@ -122,6 +113,15 @@ function startGame() {
     }, (Math.floor(Math.random() * lives) + 1) * 10000);
 }
 
+// This is the Fisher–Yates shuffle Algorithm 
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
 let donateTimeout;
 let countdownInterval;
 
@@ -131,24 +131,12 @@ function donateCoins() {
     coinIntervals.forEach(interval => clearInterval(interval))
     clearInterval(startInterval)
 
-    const charachterClasses = ["pos1","pos2","pos3","pos4"]
-    
     const allCharachters = [guitarPlayerDiv,homelessGuyDiv,assassinDiv,teenagerDiv]
-    
-    // This is the Fisher–Yates shuffle Algorithm 
-    function shuffle(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
-    
+    const charachterClasses = ["pos1","pos2","pos3","pos4"]
     const shuffledClasses = shuffle([...charachterClasses]);
     
     allCharachters.forEach((char, index) => {
         char.classList.remove(...charachterClasses);
-        
         char.classList.add(shuffledClasses[index]);
     });
 
@@ -206,9 +194,6 @@ restartButton.addEventListener("click",() => {
     coinIntervals.forEach(interval => clearInterval(interval))
     startGame()
 })
-
-
-
 
 guitarPlayerDiv.addEventListener("click", () => {
     lives--
