@@ -3,11 +3,20 @@ const gameboard = document.getElementById("game");
 const scoreDiv = document.getElementById("score");
 const livesDiv = document.getElementById("lives");
 const menuDiv = document.getElementById("menu");
+const donateMenuDiv = document.getElementById("donateMenu");
 const startButton = document.getElementById("start-button");
 const restartButton = document.getElementById("restart-button");
+const guitarPlayerDiv = document.getElementById("guitar-player");
+const homelessGuyDiv = document.getElementById("homeless-guy");
+const assassinDiv = document.getElementById("assassin");
+const teenagerDiv = document.getElementById("teenager");
 
 let score = 0;
 let lives = 3;
+let guitarist = 0;
+let homelessGuy = 0;
+let assassin = 0;
+let teenager = 0;
 
 gameboard.addEventListener("mousemove",(e) => {
     basket.style.bottom = e.x + "px";
@@ -71,16 +80,71 @@ startButton.addEventListener("click",() => {
         lives = 3;
         score = 0;
     }
-    setInterval(() => {
-        if(lives > 0){
-            createCoin()
-        }
-    }, 1000);
+    startGame()
 })
 
-restartButton.addEventListener("click",() => {
-    if(lives <= 0){
-        removeAllCoins()
-        menuDiv.style.display = "block"
-    }
+let startInterval;
+let donateInterval;
+
+function startGame() {
+    startInterval = setInterval(() => {
+        if(lives > 0){
+            createCoin()
+        } else {
+            removeAllCoins()
+            clearInterval(startInterval)
+        }
+    }, 1000);
+    donateInterval = setInterval(() => {
+        donateCoins()
+    }, Math.random() * 10000 * lives);
+}
+
+function donateCoins() {
+    donateMenuDiv.style.display = "block"
+    clearInterval(startInterval)
+}
+
+
+// restartButton.addEventListener("click",() => {
+//     if(lives <= 0){
+//         removeAllCoins()
+//         menuDiv.style.display = "block"
+//     }
+// })
+
+guitarPlayerDiv.addEventListener("click", () => {
+    guitarist += score
+    console.log(guitarist)
+    donateMenuDiv.style.display = "none"
+    clearInterval(donateInterval)
+    // removeAllCoins()
+    startGame()
+})
+
+homelessGuyDiv.addEventListener("click", () => {
+    homelessGuy += score
+    console.log(homelessGuy)
+    donateMenuDiv.style.display = "none"
+    clearInterval(donateInterval)
+    // removeAllCoins()
+    startGame()
+})
+
+assassinDiv.addEventListener("click", () => {
+    assassin += score
+    console.log(assassin)
+    donateMenuDiv.style.display = "none"
+    clearInterval(donateInterval)
+    // removeAllCoins()
+    startGame()
+})
+
+teenagerDiv.addEventListener("click", () => {
+    teenager += score
+    console.log(teenager)
+    donateMenuDiv.style.display = "none"
+    clearInterval(donateInterval)
+    // removeAllCoins()
+    startGame()
 })

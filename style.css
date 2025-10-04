@@ -126,3 +126,17 @@ body {
     cursor: pointer;
     z-index: 990;
 }
+.donate-menu{
+    position: absolute;
+    width: fit-content;
+    height: fit-content;
+    padding: 1em;
+    background: rgb(254, 254, 253);
+    top: 50%;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    z-index: 999;
+    display: none;
+}
