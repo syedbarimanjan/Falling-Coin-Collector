@@ -9,6 +9,7 @@ const startButton = document.getElementById("start-button");
 const restartButton = document.getElementById("restart-button");
 const pauseButton = document.getElementById("pause-button");
 const resumeButton = document.getElementById("resume-button");
+// const charachtersDiv = document.getElementById("charachters-div");
 const guitarPlayerDiv = document.getElementById("guitar-player");
 const homelessGuyDiv = document.getElementById("homeless-guy");
 const assassinDiv = document.getElementById("assassin");
@@ -140,6 +141,28 @@ resumeButton.addEventListener("click", () => {
 //         menuDiv.style.display = "block"
 //     }
 // })
+
+
+
+const charachterClasses = ["pos1","pos2","pos3","pos4"]
+
+const allCharachters = [guitarPlayerDiv,homelessGuyDiv,assassinDiv,teenagerDiv]
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+const shuffledClasses = shuffle([...charachterClasses]);
+
+allCharachters.forEach((char, index) => {
+    char.classList.remove(...charachterClasses);
+    
+    char.classList.add(shuffledClasses[index]);
+});
 
 guitarPlayerDiv.addEventListener("click", () => {
     guitarist += currentScore;

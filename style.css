@@ -112,47 +112,55 @@ body {
 .hide{
     display: none;
 }
-.guitar-player{
+.pos1 {
     position: absolute;
+    bottom: 1%;
+    left: 5%;
+}
+.pos2 {
+    position: absolute;
+    bottom: 0%;
+    left: 30%;
+}
+.pos3 {
+    position: absolute;
+    bottom: 1%;
+    left: 60%;
+}
+.pos4 {
+    position: absolute;
+    bottom: 0%;
+    left: 85%;
+}
+.guitar-player{
     background-image: url(./guitarist.png);
     background-size: cover;
     width: 200px;
     height: 400px;
-    bottom: 1%;
-    left: 5%;
     cursor: pointer;
     z-index: 990;
 }
 .homeless-guy{
-    position: absolute;
     background-image: url(./homeless.png);
     background-size: cover;
     width: 320px;
     height: 400px;
-    bottom: 0%;
-    left: 30%;
     cursor: pointer;
     z-index: 990;
 }
 .assassin{
-    position: absolute;
     background-image: url(./assassin.png);
     background-size: contain;
     width: 250px;
     height: 400px;
-    bottom: 1%;
-    left: 60%;
     cursor: pointer;
     z-index: 990;
 }
 .teenager{
-    position: absolute;
     background-image: url(./teenager.png);
     background-size: contain;
     width: 200px;
     height: 500px;
-    bottom: 0%;
-    left: 85%;
     cursor: pointer;
     z-index: 990;
 }
