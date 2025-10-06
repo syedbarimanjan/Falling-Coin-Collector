@@ -105,6 +105,12 @@ function startGame() {
             clearInterval(startInterval)
             clearInterval(donateInterval)
         }
+
+        if(lives === 1){
+            livesDiv.style.color = "red"
+        } else {
+            livesDiv.style.color = "black"
+        }
     }, 1000);
     donateInterval = setInterval(() => {
         if(currentScore > 0 && donateMenuDiv.style.display !== "block"){
@@ -140,7 +146,8 @@ function donateCoins() {
         char.classList.add(shuffledClasses[index]);
     });
 
-    let timeLeft = 3;
+    let timeLeft = Math.floor(Math.random() * 3) + 1;
+    console.log(timeLeft)
     countdownEl.textContent = timeLeft;
 
     countdownInterval = setInterval(() => {
@@ -152,6 +159,16 @@ function donateCoins() {
     }, 1000);
 
     donateTimeout = setTimeout(() => {
+        if(lives <= 0) {
+            clearInterval(countdownInterval);
+            clearTimeout(donateTimeout)
+            clearInterval(donateInterval)
+            clearInterval(startInterval)
+            backdropDiv.style.display = "block"
+            gameOverMenu.style.display = "block"
+            finalTotalScoreDiv.textContent = "Total Score: " + totalScore;
+            removeAllCoins()
+        }
         lives--;
         livesDiv.textContent = "Lives: " + lives
         donateMenuDiv.style.display = "none";
@@ -160,7 +177,7 @@ function donateCoins() {
         clearInterval(donateInterval)
         clearInterval(startInterval)
         startGame();
-    }, 3000);
+    }, timeLeft * 1000);
 }
 
 pauseButton.addEventListener("click",() => {

@@ -47,6 +47,8 @@ body {
     transform: translate(-50%, -50%);
     border-radius: 10px;
     z-index: 999;
+    text-align: center;
+    padding: 1em;
 }
 .start-button{
     position: absolute;
